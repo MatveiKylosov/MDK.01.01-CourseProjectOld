@@ -1,0 +1,254 @@
+﻿<UserControl x:Class="MDK._01._01_CourseProject.View.Brands.UserControls.BrandUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MDK._01._01_CourseProject.View.Brands.UserControls"
+             mc:Ignorable="d">
+    <Grid Background="#02343F">
+        <Image Grid.Row="0" Grid.Column="0" Source="/Images/brand.png" Width="40px" Height="40px" Margin="5,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+        <Grid Margin="40, 0, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Margin="10" Height="60" VerticalAlignment="Top" Background="#F0EDCC">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.1"/>
+                </Grid.Effect>
+
+                <Label Content="Название бренда:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
+                <TextBox Text="Toyta" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+            </Grid>
+
+            <Grid Margin="10, 80, 10, 0" Height="60" VerticalAlignment="Top" Background="#F0EDCC">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.1"/>
+                </Grid.Effect>
+
+                <Label Content="Страна бренда:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
+                <ComboBox Text="Toyta" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0">
+                    <TextBlock Text="Afghanistan"/>
+                    <TextBlock Text="Albania"/>
+                    <TextBlock Text="Algeria"/>
+                    <TextBlock Text="Andorra"/>
+                    <TextBlock Text="Angola"/>
+                    <TextBlock Text="Antigua and Deps"/>
+                    <TextBlock Text="Argentina"/>
+                    <TextBlock Text="Armenia"/>
+                    <TextBlock Text="Australia"/>
+                    <TextBlock Text="Austria"/>
+                    <TextBlock Text="Azerbaijan"/>
+                    <TextBlock Text="Bahamas"/>
+                    <TextBlock Text="Bahrain"/>
+                    <TextBlock Text="Bangladesh"/>
+                    <TextBlock Text="Barbados"/>
+                    <TextBlock Text="Belarus"/>
+                    <TextBlock Text="Belgium"/>
+                    <TextBlock Text="Belize"/>
+                    <TextBlock Text="Benin"/>
+                    <TextBlock Text="Bhutan"/>
+                    <TextBlock Text="Bolivia"/>
+                    <TextBlock Text="Bosnia Herzegovina"/>
+                    <TextBlock Text="Botswana"/>
+                    <TextBlock Text="Brazil"/>
+                    <TextBlock Text="Brunei"/>
+                    <TextBlock Text="Bulgaria"/>
+                    <TextBlock Text="Burkina"/>
+                    <TextBlock Text="Burundi"/>
+                    <TextBlock Text="Cambodia"/>
+                    <TextBlock Text="Cameroon"/>
+                    <TextBlock Text="Canada"/>
+                    <TextBlock Text="Cape Verde"/>
+                    <TextBlock Text="Central African Rep"/>
+                    <TextBlock Text="Chad"/>
+                    <TextBlock Text="Chile"/>
+                    <TextBlock Text="China"/>
+                    <TextBlock Text="Colombia"/>
+                    <TextBlock Text="Comoros"/>
+                    <TextBlock Text="Congo"/>
+                    <TextBlock Text="Costa Rica"/>
+                    <TextBlock Text="Croatia"/>
+                    <TextBlock Text="Cuba"/>
+                    <TextBlock Text="Cyprus"/>
+                    <TextBlock Text="Czech Republic"/>
+                    <TextBlock Text="Denmark"/>
+                    <TextBlock Text="Djibouti"/>
+                    <TextBlock Text="Dominica"/>
+                    <TextBlock Text="Dominican Republic"/>
+                    <TextBlock Text="East Timor"/>
+                    <TextBlock Text="Ecuador"/>
+                    <TextBlock Text="Egypt"/>
+                    <TextBlock Text="El Salvador"/>
+                    <TextBlock Text="Equatorial Guinea"/>
+                    <TextBlock Text="Eritrea"/>
+                    <TextBlock Text="Estonia"/>
+                    <TextBlock Text="Ethiopia"/>
+                    <TextBlock Text="Fiji"/>
+                    <TextBlock Text="Finland"/>
+                    <TextBlock Text="France"/>
+                    <TextBlock Text="Gabon"/>
+                    <TextBlock Text="Gambia"/>
+                    <TextBlock Text="Georgia"/>
+                    <TextBlock Text="Germany"/>
+                    <TextBlock Text="Ghana"/>
+                    <TextBlock Text="Greece"/>
+                    <TextBlock Text="Grenada"/>
+                    <TextBlock Text="Guatemala"/>
+                    <TextBlock Text="Guinea"/>
+                    <TextBlock Text="Guinea-Bissau"/>
+                    <TextBlock Text="Guyana"/>
+                    <TextBlock Text="Haiti"/>
+                    <TextBlock Text="Honduras"/>
+                    <TextBlock Text="Hungary"/>
+                    <TextBlock Text="Iceland"/>
+                    <TextBlock Text="India"/>
+                    <TextBlock Text="Indonesia"/>
+                    <TextBlock Text="Iran"/>
+                    <TextBlock Text="Iraq"/>
+                    <TextBlock Text="Ireland"/>
+                    <TextBlock Text="Israel"/>
+                    <TextBlock Text="Italy"/>
+                    <TextBlock Text="Ivory Coast"/>
+                    <TextBlock Text="Jamaica"/>
+                    <TextBlock Text="Japan"/>
+                    <TextBlock Text="Jordan"/>
+                    <TextBlock Text="Kazakhstan"/>
+                    <TextBlock Text="Kenya"/>
+                    <TextBlock Text="Kiribati"/>
+                    <TextBlock Text="Korea North"/>
+                    <TextBlock Text="Korea South"/>
+                    <TextBlock Text="Kosovo"/>
+                    <TextBlock Text="Kuwait"/>
+                    <TextBlock Text="Kyrgyzstan"/>
+                    <TextBlock Text="Laos"/>
+                    <TextBlock Text="Latvia"/>
+                    <TextBlock Text="Lebanon"/>
+                    <TextBlock Text="Lesotho"/>
+                    <TextBlock Text="Liberia"/>
+                    <TextBlock Text="Libya"/>
+                    <TextBlock Text="Liechtenstein"/>
+                    <TextBlock Text="Lithuania"/>
+                    <TextBlock Text="Luxembourg"/>
+                    <TextBlock Text="Macedonia"/>
+                    <TextBlock Text="Madagascar"/>
+                    <TextBlock Text="Malawi"/>
+                    <TextBlock Text="Malaysia"/>
+                    <TextBlock Text="Maldives"/>
+                    <TextBlock Text="Mali"/>
+                    <TextBlock Text="Malta"/>
+                    <TextBlock Text="Marshall Islands"/>
+                    <TextBlock Text="Mauritania"/>
+                    <TextBlock Text="Mauritius"/>
+                    <TextBlock Text="Mexico"/>
+                    <TextBlock Text="Micronesia"/>
+                    <TextBlock Text="Moldova"/>
+                    <TextBlock Text="Monaco"/>
+                    <TextBlock Text="Mongolia"/>
+                    <TextBlock Text="Montenegro"/>
+                    <TextBlock Text="Morocco"/>
+                    <TextBlock Text="Mozambique"/>
+                    <TextBlock Text="Myanmar"/>
+                    <TextBlock Text="Namibia"/>
+                    <TextBlock Text="Nauru"/>
+                    <TextBlock Text="Nepal"/>
+                    <TextBlock Text="Netherlands"/>
+                    <TextBlock Text="New Zealand"/>
+                    <TextBlock Text="Nicaragua"/>
+                    <TextBlock Text="Niger"/>
+                    <TextBlock Text="Nigeria"/>
+                    <TextBlock Text="Norway"/>
+                    <TextBlock Text="Oman"/>
+                    <TextBlock Text="Pakistan"/>
+                    <TextBlock Text="Palau"/>
+                    <TextBlock Text="Panama"/>
+                    <TextBlock Text="Papua New Guinea"/>
+                    <TextBlock Text="Paraguay"/>
+                    <TextBlock Text="Peru"/>
+                    <TextBlock Text="Philippines"/>
+                    <TextBlock Text="Poland"/>
+                    <TextBlock Text="Portugal"/>
+                    <TextBlock Text="Qatar"/>
+                    <TextBlock Text="Romania"/>
+                    <TextBlock Text="Russian Federation"/>
+                    <TextBlock Text="Rwanda"/>
+                    <TextBlock Text="St Kitts and Nevis"/>
+                    <TextBlock Text="St Lucia"/>
+                    <TextBlock Text="Saint Vincent and the Grenadines"/>
+                    <TextBlock Text="Samoa"/>
+                    <TextBlock Text="San Marino"/>
+                    <TextBlock Text="Sao Tome and Principe"/>
+                    <TextBlock Text="Saudi Arabia"/>
+                    <TextBlock Text="Senegal"/>
+                    <TextBlock Text="Serbia"/>
+                    <TextBlock Text="Seychelles"/>
+                    <TextBlock Text="Sierra Leone"/>
+                    <TextBlock Text="Singapore"/>
+                    <TextBlock Text="Slovakia"/>
+                    <TextBlock Text="Slovenia"/>
+                    <TextBlock Text="Solomon Islands"/>
+                    <TextBlock Text="Somalia"/>
+                    <TextBlock Text="South Africa"/>
+                    <TextBlock Text="South Sudan"/>
+                    <TextBlock Text="Spain"/>
+                    <TextBlock Text="Sri Lanka"/>
+                    <TextBlock Text="Sudan"/>
+                    <TextBlock Text="Suriname"/>
+                    <TextBlock Text="Swaziland"/>
+                    <TextBlock Text="Sweden"/>
+                    <TextBlock Text="Switzerland"/>
+                    <TextBlock Text="Syria"/>
+                    <TextBlock Text="Taiwan"/>
+                    <TextBlock Text="Tajikistan"/>
+                    <TextBlock Text="Tanzania"/>
+                    <TextBlock Text="Thailand"/>
+                    <TextBlock Text="Togo"/>
+                    <TextBlock Text="Tonga"/>
+                    <TextBlock Text="Trinidad and Tobago"/>
+                    <TextBlock Text="Tunisia"/>
+                    <TextBlock Text="Turkey"/>
+                    <TextBlock Text="Turkmenistan"/>
+                    <TextBlock Text="Tuvalu"/>
+                    <TextBlock Text="Uganda"/>
+                    <TextBlock Text="Ukraine"/>
+                    <TextBlock Text="United Arab Emirates"/>
+                    <TextBlock Text="United Kingdom"/>
+                    <TextBlock Text="United States"/>
+                    <TextBlock Text="Uruguay"/>
+                    <TextBlock Text="Uzbekistan"/>
+                    <TextBlock Text="Vanuatu"/>
+                    <TextBlock Text="Vatican City"/>
+                    <TextBlock Text="Venezuela"/>
+                    <TextBlock Text="Vietnam"/>
+                    <TextBlock Text="Yemen"/>
+                    <TextBlock Text="Zambia"/>
+                    <TextBlock Text="Zimbabwe"/>
+                </ComboBox>
+            </Grid>
+
+            <Grid Margin="10" Height="60" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="1">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.1"/>
+                </Grid.Effect>
+
+                <Label Content="Завод:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
+                <TextBox Text="ПивЗавод" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+            </Grid>
+
+            <Grid Margin="10, 80, 10, 0" Height="60" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="1">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.1"/>
+                </Grid.Effect>
+
+                <Label Content="Адрес:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
+                <TextBox Text="МАСКВА ТУТ СЯМ" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+            </Grid>
+
+            <Button Content="Удалить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10, 145, 160, 0" Grid.Column="1"/>
+            <Button Content="Открыть" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 145, 85, 10" Grid.Column="1"/>
+            <Button Content="Изменить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 145, 10, 0" Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</UserControl>
