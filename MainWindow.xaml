@@ -12,6 +12,14 @@
                 <DropShadowEffect Opacity="0.1"/>
             </Grid.Effect>
             <Label Content="Таблица" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18"/>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding OpenBrand}" Content="Марки" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
+                <Button Command="{Binding OpenCar}" Content="Машины" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
+                <Button Command="{Binding OpenCarSale}" Content="Продажи" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
+                <Button Command="{Binding OpenCustomer}" Content="Клиенты" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
+                <Button Command="{Binding OpenEmployee}" Content="Сотрудники" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
+            </StackPanel>
         </Grid>
 
         <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Margin="0,55,0,0"/>

@@ -8,11 +8,8 @@ namespace MDK._01._01_CourseProject.Models
     {
         private DateTime saleDate;
         private int employeeID;
-        private Employee employee;
         private int carID;
-        private Car car;
         private int customerID;
-        private Customer customer;
 
         public int SaleID { get; set; }
         public DateTime SaleDate
@@ -21,7 +18,7 @@ namespace MDK._01._01_CourseProject.Models
             set
             {
                 saleDate = value;
-                OnPropertyChanged("");
+                OnPropertyChanged("SaleDate");
             }
         }
         public int EmployeeID
@@ -30,34 +27,17 @@ namespace MDK._01._01_CourseProject.Models
             set
             {
                 employeeID = value;
-                OnPropertyChanged("");
+                OnPropertyChanged("EmployeeID");
             }
         }
-        public Employee Employee
-        {
-            get { return employee; }
-            set
-            {
-                employee = value;
-                OnPropertyChanged("");
-            }
-        }
+
         public int CarID
         {
             get { return carID; }
             set
             {
                 carID = value;
-                OnPropertyChanged("");
-            }
-        }
-        public Car Car
-        {
-            get { return car; }
-            set
-            {
-                car = value;
-                OnPropertyChanged("");
+                OnPropertyChanged("CarID");
             }
         }
         public int CustomerID
@@ -66,16 +46,7 @@ namespace MDK._01._01_CourseProject.Models
             set
             {
                 customerID = value;
-                OnPropertyChanged("");
-            }
-        }
-        public Customer Customer
-        {
-            get { return customer; }
-            set
-            {
-                customer = value;
-                OnPropertyChanged("");
+                OnPropertyChanged("CustomerID");
             }
         }
 

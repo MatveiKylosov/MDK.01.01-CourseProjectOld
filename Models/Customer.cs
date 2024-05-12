@@ -3,6 +3,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Schema = System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace MDK._01._01_CourseProject.Models
 {
@@ -127,13 +128,22 @@ namespace MDK._01._01_CourseProject.Models
                 {
                     if (MessageBox.Show("Вы уверены что хотите удалить запись клиента?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCustomer.Customer.Remove(this);
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCustomer.CustomerContext.Remove(this);
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCustomer.CustomerContext.SaveChanges();
+                        var VMCarSale = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCarSale;
+                        var VMCustomer = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCustomer;
+                        foreach (var carSale in VMCarSale.CarSale.Where(x => x.CustomerID == this.CustomerID).ToList())
+                        {
+                            VMCarSale.CarSale.Remove(carSale);
+                            VMCarSale.CarSaleContext.Remove(carSale);
+                        }
+                        VMCarSale.CarSaleContext.SaveChanges();
+
+                        VMCustomer.Customer.Remove(this);
+                        VMCustomer.CustomerContext.Remove(this);
+                        VMCustomer.CustomerContext.SaveChanges();
                     }
-                }
-                );
+                });
             }
         }
+
     }
 }

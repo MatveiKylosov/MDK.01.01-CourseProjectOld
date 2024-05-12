@@ -1,7 +1,9 @@
 ﻿using MDK._01._01_CourseProject.Common;
+using MDK._01._01_CourseProject.ViewModels;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Schema = System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace MDK._01._01_CourseProject.Models
 {
@@ -24,7 +26,7 @@ namespace MDK._01._01_CourseProject.Models
                 else
                 {
                     fullName = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("FullName");
                 }
             }
         }
@@ -39,7 +41,7 @@ namespace MDK._01._01_CourseProject.Models
                 else
                 {
                     workExperience = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("WorkExperience");
                 }
             }
         }
@@ -54,7 +56,7 @@ namespace MDK._01._01_CourseProject.Models
                 else
                 {
                     salary = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("Salary");
                 }
             }
         }
@@ -69,7 +71,7 @@ namespace MDK._01._01_CourseProject.Models
                 else
                 {
                     contactDetails = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("ContactDetails");
                 }
             }
         }
@@ -100,9 +102,19 @@ namespace MDK._01._01_CourseProject.Models
                 {
                     if (MessageBox.Show("Вы уверены что хотите удалить запись сотрудника?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMEmployee.Employee.Remove(this);
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMEmployee.EmployeeContext.Remove(this);
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMEmployee.EmployeeContext.SaveChanges();
+                        var VMEmployee = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMEmployee;
+                        var VMCarSale = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCarSale;
+
+                        foreach (var carSale in VMCarSale.CarSale.Where(x => x.EmployeeID == this.EmployeeID).ToList())
+                        {
+                            VMCarSale.CarSale.Remove(carSale);
+                            VMCarSale.CarSaleContext.Remove(carSale);
+                        }
+                        VMCarSale.CarSaleContext.SaveChanges();
+
+                        VMEmployee.Employee.Remove(this);
+                        VMEmployee.EmployeeContext.Remove(this);
+                        VMEmployee.EmployeeContext.SaveChanges();
                     }
                 }
                 );

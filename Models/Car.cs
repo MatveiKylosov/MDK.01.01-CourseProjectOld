@@ -2,6 +2,7 @@
 using Schema = System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Linq;
 
 namespace MDK._01._01_CourseProject.Models
 {
@@ -9,7 +10,6 @@ namespace MDK._01._01_CourseProject.Models
     {
         private string carName;
         private int brandID;
-        private Brand brand;
         private int yearOfProduction;
         private string color;
         private string category;
@@ -27,7 +27,7 @@ namespace MDK._01._01_CourseProject.Models
                 else
                 {
                     carName = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("CarName");
                 }
             }
         }
@@ -37,16 +37,7 @@ namespace MDK._01._01_CourseProject.Models
             set
             {
                 brandID = value;
-                OnPropertyChanged("");
-            }
-        }
-        public Brand Brand
-        {
-            get { return brand; }
-            set
-            {
-                brand = value;
-                OnPropertyChanged("");
+                OnPropertyChanged("BrandID");
             }
         }
         public int YearOfProduction
@@ -55,7 +46,7 @@ namespace MDK._01._01_CourseProject.Models
             set
             {
                 yearOfProduction = value;
-                OnPropertyChanged("");
+                OnPropertyChanged("YearOfProduction");
             }
         }
         public string Color
@@ -69,7 +60,7 @@ namespace MDK._01._01_CourseProject.Models
                 else
                 {
                     color = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("Color");
                 }
             }
         }
@@ -84,7 +75,7 @@ namespace MDK._01._01_CourseProject.Models
                 else
                 {
                     category = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("Category");
                 }
             }
         }
@@ -94,7 +85,7 @@ namespace MDK._01._01_CourseProject.Models
             set
             {
                 price = value;
-                OnPropertyChanged("");
+                OnPropertyChanged("Price");
             }
         }
 
@@ -124,13 +115,23 @@ namespace MDK._01._01_CourseProject.Models
                 {
                     if (MessageBox.Show("Вы уверены что хотите удалить запись машины?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCar.Car.Remove(this);
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCar.CarContext.Remove(this);
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCar.CarContext.SaveChanges();
+                        var VMCarSale = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCarSale;
+                        var VMCar = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCar;
+
+                        foreach (var carSale in VMCarSale.CarSale.Where(x => x.CarID == this.CarID).ToList())
+                        {
+                            VMCarSale.CarSale.Remove(carSale);
+                            VMCarSale.CarSaleContext.Remove(carSale);
+                        }
+                        VMCarSale.CarSaleContext.SaveChanges();
+
+                        VMCar.Car.Remove(this);
+                        VMCar.CarContext.Remove(this);
+                        VMCar.CarContext.SaveChanges();
                     }
-                }
-                );
+                });
             }
         }
+
     }
 }
