@@ -15,9 +15,9 @@ namespace MDK._01._01_CourseProject.ViewModels
         public VMCustomer   VMCustomer;
         public VMEmployee   VMEmployee;
 
-        VMPages()
+        public VMPages()
         {
-            MainWindow.Instance.Frame.Navigate(new View.Cars.Main(VMCar));
+            MainWindow.Instance.Frame.Navigate(new View.Brands.Main(VMBrand));
         }
 
 

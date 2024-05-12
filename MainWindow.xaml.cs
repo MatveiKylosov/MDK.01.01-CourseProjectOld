@@ -25,6 +25,7 @@ namespace MDK._01._01_CourseProject
         {
             InitializeComponent();
             Instance = this;
+            DataContext = new ViewModels.VMPages();
         }
     }
 }

@@ -7,9 +7,9 @@ namespace MDK._01._01_CourseProject.ViewModels
     public class VMCar
     {
         public CarContext CarContext = new CarContext();
-        public ObservableCollection<Car> Car {  get; set; }
-        public VMCar() 
-        { 
+        public ObservableCollection<Car> Car { get; set; }
+        public VMCar()
+        {
             Car = new ObservableCollection<Car>(CarContext.Cars);
         }
 
@@ -28,4 +28,5 @@ namespace MDK._01._01_CourseProject.ViewModels
                 );
             }
         }
+    }
 }
