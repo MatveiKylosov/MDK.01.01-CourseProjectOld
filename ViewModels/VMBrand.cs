@@ -2,6 +2,8 @@
 using MDK._01._01_CourseProject.Context;
 using MDK._01._01_CourseProject.Models;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 
 namespace MDK._01._01_CourseProject.ViewModels
 {

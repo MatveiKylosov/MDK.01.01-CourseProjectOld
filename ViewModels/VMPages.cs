@@ -9,11 +9,11 @@ namespace MDK._01._01_CourseProject.ViewModels
 {
     public class VMPages
     {
-        public VMBrand      VMBrand;
-        public VMCar        VMCar;
-        public VMCarSale    VMCarSale;
-        public VMCustomer   VMCustomer;
-        public VMEmployee   VMEmployee;
+        public VMBrand      VMBrand     = new VMBrand();
+        public VMCar        VMCar       /*= new VMCar()*/;
+        public VMCarSale    VMCarSale   /*= new VMCarSale()*/;
+        public VMCustomer   VMCustomer  /*= new VMCustomer()*/;
+        public VMEmployee   VMEmployee  /*= new VMEmployee()*/;
 
         public VMPages()
         {

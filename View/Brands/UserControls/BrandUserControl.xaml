@@ -20,7 +20,7 @@
                 </Grid.Effect>
 
                 <Label Content="Название бренда:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <TextBox Text="Toyta" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <TextBox Text="{Binding BrandName}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0" IsEnabled="{Binding IsEnable}"/>
             </Grid>
 
             <Grid Margin="10, 80, 10, 0" Height="60" VerticalAlignment="Top" Background="#F0EDCC">
@@ -29,7 +29,7 @@
                 </Grid.Effect>
 
                 <Label Content="Страна бренда:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <ComboBox Text="Toyta" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0">
+                <ComboBox Text="{Binding Country}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0" IsEnabled="{Binding IsEnable}">
                     <TextBlock Text="Afghanistan"/>
                     <TextBlock Text="Albania"/>
                     <TextBlock Text="Algeria"/>
@@ -234,7 +234,7 @@
                 </Grid.Effect>
 
                 <Label Content="Завод:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <TextBox Text="ПивЗавод" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <TextBox Text="{Binding Manufacturer}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0" IsEnabled="{Binding IsEnable}"/>
             </Grid>
 
             <Grid Margin="10, 80, 10, 0" Height="60" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="1">
@@ -243,12 +243,12 @@
                 </Grid.Effect>
 
                 <Label Content="Адрес:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <TextBox Text="МАСКВА ТУТ СЯМ" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <TextBox Text="{Binding Address}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0" IsEnabled="{Binding IsEnable}"/>
             </Grid>
 
-            <Button Content="Удалить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10, 145, 160, 0" Grid.Column="1"/>
+            <Button Command="{Binding OnDelete}" IsEnabled="{Binding IsEnable}" Content="Удалить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10, 145, 160, 0" Grid.Column="1"/>
             <Button Content="Открыть" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 145, 85, 10" Grid.Column="1"/>
-            <Button Content="Изменить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 145, 10, 0" Grid.Column="1"/>
+            <Button Command="{Binding OnEdit}" Content="{Binding IsEnableText}" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 145, 10, 0" Grid.Column="1"/>
         </Grid>
     </Grid>
 </UserControl>

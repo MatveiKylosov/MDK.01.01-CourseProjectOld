@@ -10,7 +10,7 @@
       Title="Main">
 
     <Grid>
-        <ListView ItemsSource="{Binding CarSalesUserControl}" HorizontalContentAlignment="Stretch" Margin="0,0,0,45" Background="#F0EDCC">
+        <ListView ItemsSource="{Binding Car}" HorizontalContentAlignment="Stretch" Margin="0,0,0,45" Background="#F0EDCC">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <elements:CarSalesUserControl DataContext="{Binding}"/>
