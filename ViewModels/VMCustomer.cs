@@ -12,7 +12,7 @@ namespace MDK._01._01_CourseProject.ViewModels
 {
     public class VMCustomer
     {
-        public CustomerContext CustomerContext { get; set; }
+        public CustomerContext CustomerContext = new CustomerContext();
         public ObservableCollection<Customer> Customer { get; set; }
         public VMCustomer()
         {

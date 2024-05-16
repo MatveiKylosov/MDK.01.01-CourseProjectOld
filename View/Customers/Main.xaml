@@ -10,7 +10,7 @@
       Title="Main">
 
     <Grid>
-        <ListView ItemsSource="{Binding Customers}" HorizontalContentAlignment="Stretch" Margin="0,0,0,45" Background="#F0EDCC">
+        <ListView ItemsSource="{Binding Customer}" HorizontalContentAlignment="Stretch" Margin="0,0,0,45" Background="#F0EDCC">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <elements:CustomersUserControl DataContext="{Binding}"/>
@@ -19,7 +19,7 @@
         </ListView>
 
         <TextBox VerticalContentAlignment="Center" Margin="10,0,130,10" VerticalAlignment="Bottom" Height="25" Background="#02343F" Foreground="#F0EDCC" />
-        <Button Content="Добавить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0, 0, 10, 10">
+        <Button Command="{Binding AddCustomer}" Content="Добавить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0, 0, 10, 10">
             <Button.Effect>
                 <DropShadowEffect Opacity="0.5" BlurRadius="3" ShadowDepth="3"/>
             </Button.Effect>

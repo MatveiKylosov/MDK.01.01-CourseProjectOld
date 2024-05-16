@@ -23,7 +23,7 @@ namespace MDK._01._01_CourseProject.ViewModels
 
                     this.Car.Add(car);
                     CarContext.Cars.Add(car);
-                    CarContext.SaveChanges();
+/*                    CarContext.SaveChanges();*/
                 }
                 );
             }

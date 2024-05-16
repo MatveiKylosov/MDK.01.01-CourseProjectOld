@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Media.Animation;
 using Schema = System.ComponentModel.DataAnnotations.Schema;
 
 namespace MDK._01._01_CourseProject.Models
@@ -23,29 +24,22 @@ namespace MDK._01._01_CourseProject.Models
             get{ return brandName; } 
             set
             {
-                Match match = Regex.Match(value, "");
-                if(!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     brandName = value;
                     OnPropertyChanged("BrandName");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Название марки машины должно быть больше 0 и меньше 255 символов");
             }
         }
-        public string Country 
+        public string Country
         { 
             get{ return country; } 
             set
             {
-                Match match = Regex.Match(value, "");
-                if(!match.Success)
-                    MessageBox.Show($"");
-                else
-                {
-                    country = value;
-                    OnPropertyChanged("Country");
-                }
+                country = value;
+                OnPropertyChanged("Country");
             }
         }
         public string Manufacturer 
@@ -53,14 +47,13 @@ namespace MDK._01._01_CourseProject.Models
             get{ return manufacturer; } 
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     manufacturer = value;
                     OnPropertyChanged("Manufacturer");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Название завода должно быть больше 0 и меньше 255 символов");
             }
         }
         public string Address 
@@ -68,14 +61,13 @@ namespace MDK._01._01_CourseProject.Models
             get{ return address; } 
             set
             {
-                Match match = Regex.Match(value, "");
-                if(!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     address = value;
                     OnPropertyChanged("Address");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Адрес должен быть больше 0 и меньше 255 символов");
             }
         }
 
@@ -104,32 +96,49 @@ namespace MDK._01._01_CourseProject.Models
             {
                 return new RelayCommand(obj =>
                 {
-                    if (MessageBox.Show("Вы уверены что хотите удалить запись бренда?\nВ случае удаления данной записи буду удалены другие, где она содержится", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    var result = MessageBox.Show("Удалить вместе с этой записью другие?", "Предупреждение", MessageBoxButton.YesNoCancel);
+
+                    if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
                     {
-                        var VMBrand = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMBrand;
-                        var VMCar = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCar;
-                        var VMCarSale = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCarSale;
+                        var VMPages = MainWindow.Instance.DataContext as ViewModels.VMPages;
+                        var VMBrand = VMPages.VMBrand;
+                        var VMCar = VMPages.VMCar;
+                        var VMCarSale = VMPages.VMCarSale;
 
-                        foreach (var carSale in VMCarSale.CarSale.Where(x => VMCar.CarContext.Cars.Any(c => c.CarID == x.CarID && c.BrandID == this.BrandID)).ToList())
+                        if (result == MessageBoxResult.Yes)
                         {
-                            VMCarSale.CarSale.Remove(carSale);
-                            VMCarSale.CarSaleContext.Remove(carSale);
-                        }
-                        VMCarSale.CarSaleContext.SaveChanges();
+                            var carSalesToRemove = VMCarSale.CarSale.Where(x => VMCar.CarContext.Cars.Any(c => c.CarID == x.CarID && c.BrandID == this.BrandID)).ToList();
+                            foreach (var carSale in carSalesToRemove)
+                            {
+                                VMCarSale.CarSale.Remove(carSale);
+                                VMCarSale.CarSaleContext.Remove(carSale);
+                            }
 
-                        foreach (var car in VMCar.CarContext.Cars.Where(x => x.BrandID == this.BrandID).ToList())
-                        {
-                            VMCar.Car.Remove(car);
-                            VMCar.CarContext.Remove(car);
+                            var carsToRemove = VMCar.CarContext.Cars.Where(x => x.BrandID == this.BrandID).ToList();
+                            foreach (var car in carsToRemove)
+                            {
+                                VMCar.Car.Remove(car);
+                                VMCar.CarContext.Remove(car);
+                            }
                         }
+                        else
+                        {
+                            var carsToUpdate = VMCar.CarContext.Cars.Where(x => x.BrandID == this.BrandID).ToList();
+                            var carsToUpdateContext = VMCar.CarContext.Cars.Where(x => x.BrandID == this.BrandID).ToList();
+                            foreach (var car in carsToUpdate)
+                            {
+                                car.BrandID = -1;
+                                carsToUpdateContext.First(x => x.CarID == car.CarID).BrandID = -1;
+                            }
+                        }
+
                         VMCar.CarContext.SaveChanges();
 
                         VMBrand.Brand.Remove(this);
                         VMBrand.BrandContext.Remove(this);
                         VMBrand.BrandContext.SaveChanges();
                     }
-                }
-                );
+                });
             }
         }
     }

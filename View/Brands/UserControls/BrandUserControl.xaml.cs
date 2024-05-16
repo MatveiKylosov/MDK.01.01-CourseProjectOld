@@ -23,6 +23,6 @@ namespace MDK._01._01_CourseProject.View.Brands.UserControls
         public BrandUserControl()
         {
             InitializeComponent();
-        }
+        }       
     }
 }

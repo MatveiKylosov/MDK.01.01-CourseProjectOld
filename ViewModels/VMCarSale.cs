@@ -12,7 +12,7 @@ namespace MDK._01._01_CourseProject.ViewModels
 {
     public class VMCarSale
     {
-        public CarSaleContext CarSaleContext { get; set; }
+        public CarSaleContext CarSaleContext = new CarSaleContext();
         public ObservableCollection<CarSale> CarSale { get; set; }
         public VMCarSale() 
         { 

@@ -10,8 +10,8 @@ namespace MDK._01._01_CourseProject.Models
     public class Employee : NotMappedNotification
     {
         private string fullName;
-        private int workExperience;
-        private decimal salary;
+        private int? workExperience;
+        private decimal? salary;
         private string contactDetails;
 
         public int EmployeeID { get; set; }
@@ -20,24 +20,23 @@ namespace MDK._01._01_CourseProject.Models
             get { return fullName; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     fullName = value;
                     OnPropertyChanged("FullName");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Название машины должно быть больше 0 и меньше 255 символов.");
             }
         }
-        public int WorkExperience
+        public int? WorkExperience
         {
             get { return workExperience; }
             set
             {
-                Match match = Regex.Match(value.ToString(), "");
+                Match match = Regex.Match(value.ToString(), @"^\d+$");
                 if (!match.Success)
-                    MessageBox.Show($"");
+                    MessageBox.Show("Ошибка", "Стаж работы должен быть положительным числом.");
                 else
                 {
                     workExperience = value;
@@ -45,14 +44,15 @@ namespace MDK._01._01_CourseProject.Models
                 }
             }
         }
-        public decimal Salary
+
+        public decimal? Salary
         {
             get { return salary; }
             set
             {
-                Match match = Regex.Match(value.ToString(), "");
+                Match match = Regex.Match(value.ToString(), @"^\d*[\.,]?\d*$");
                 if (!match.Success)
-                    MessageBox.Show($"");
+                    MessageBox.Show("Ошибка", "Зарплата должна быть положительным числом.");
                 else
                 {
                     salary = value;
@@ -60,19 +60,19 @@ namespace MDK._01._01_CourseProject.Models
                 }
             }
         }
+
         public string ContactDetails
         {
             get { return contactDetails; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     contactDetails = value;
                     OnPropertyChanged("ContactDetails");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Контактные данные должны быть больше 0 и меньше 255 символов.");
             }
         }
 
@@ -100,15 +100,29 @@ namespace MDK._01._01_CourseProject.Models
             {
                 return new RelayCommand(obj =>
                 {
-                    if (MessageBox.Show("Вы уверены что хотите удалить запись сотрудника?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    {
-                        var VMEmployee = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMEmployee;
-                        var VMCarSale = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCarSale;
+                    var result = MessageBox.Show("Удалить вместе с этой записью другие?", "Предупреждение", MessageBoxButton.YesNoCancel);
 
-                        foreach (var carSale in VMCarSale.CarSale.Where(x => x.EmployeeID == this.EmployeeID).ToList())
+                    if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
+                    {
+                        var VMPages = MainWindow.Instance.DataContext as ViewModels.VMPages;
+                        var VMEmployee  = VMPages.VMEmployee;
+                        var VMCarSale   = VMPages.VMCarSale;
+
+                        if(result == MessageBoxResult.Yes)
                         {
-                            VMCarSale.CarSale.Remove(carSale);
-                            VMCarSale.CarSaleContext.Remove(carSale);
+                            foreach (var carSale in VMCarSale.CarSale.Where(x => x.EmployeeID == this.EmployeeID).ToList())
+                            {
+                                VMCarSale.CarSale.Remove(carSale);
+                                VMCarSale.CarSaleContext.Remove(carSale);
+                            }
+                        }
+                        else
+                        {
+                            foreach (var carSale in VMCarSale.CarSale.Where(x => x.EmployeeID == this.EmployeeID).ToList())
+                            {
+                                carSale.EmployeeID = -1;
+                                VMCarSale.CarSaleContext.CarSales.First(x => carSale.SaleID == x.SaleID).EmployeeID = -1;
+                            }
                         }
                         VMCarSale.CarSaleContext.SaveChanges();
 
@@ -121,5 +135,4 @@ namespace MDK._01._01_CourseProject.Models
             }
         }
     }
-
 }

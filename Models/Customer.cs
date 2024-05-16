@@ -12,8 +12,8 @@ namespace MDK._01._01_CourseProject.Models
         private string fullName;
         private string passportData;
         private string address;
-        private DateTime birthDate;
-        private string gender;
+        private DateTime? birthDate;
+        private bool gender;
         private string contactDetails;
 
         public int CustomerID { get; set; }
@@ -22,14 +22,13 @@ namespace MDK._01._01_CourseProject.Models
             get { return fullName; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     fullName = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("FullName");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Название машины должно быть больше 0 и меньше 255 символов.");
             }
         }
         public string PassportData
@@ -37,14 +36,15 @@ namespace MDK._01._01_CourseProject.Models
             get { return passportData; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                Match match = Regex.Match(value, @"\d{10}");
+                if (match.Success)
                 {
                     passportData = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("PassportData");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Данные паспорта вводятся в формате 10 цифр серии и номера без промежутков.");
+
             }
         }
         public string Address
@@ -52,38 +52,42 @@ namespace MDK._01._01_CourseProject.Models
             get { return address; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     address = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("Address");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Адрес должен быть больше 0 и меньше 255 символов.");
             }
         }
-        public DateTime BirthDate
+        public DateTime? BirthDate
         {
             get { return birthDate; }
             set
             {
-                birthDate = value;
-                OnPropertyChanged("");
+                if(!value.HasValue)
+                    return;
+
+                Match match = Regex.Match(value.Value.ToString("dd.MM.yyyy"), @"(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.\d{4}");
+                if (match.Success)
+                {
+                    birthDate = value;
+                    OnPropertyChanged("BirthDate");
+                }
+                else 
+                    MessageBox.Show($"Ошибка", "Укажите дату в формате - \"дд.мм.гггг\".");
             }
         }
-        public string Gender
+        public bool? Gender
         {
-            get { return gender; }
+            get { 
+                return gender;  
+            }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
-                {
-                    gender = value;
-                    OnPropertyChanged("");
-                }
+                gender = !value.HasValue ? false : value.Value;
+                OnPropertyChanged("Gender");
             }
         }
         public string ContactDetails
@@ -91,13 +95,10 @@ namespace MDK._01._01_CourseProject.Models
             get { return contactDetails; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     contactDetails = value;
-                    OnPropertyChanged("");
+                    OnPropertyChanged("ContactDetails");
                 }
             }
         }
@@ -126,15 +127,29 @@ namespace MDK._01._01_CourseProject.Models
             {
                 return new RelayCommand(obj =>
                 {
-                    if (MessageBox.Show("Вы уверены что хотите удалить запись клиента?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    var result = MessageBox.Show("Удалить вместе с этой записью другие?", "Предупреждение", MessageBoxButton.YesNoCancel);
+
+                    if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
                     {
-                        var VMCarSale = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCarSale;
-                        var VMCustomer = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCustomer;
-                        foreach (var carSale in VMCarSale.CarSale.Where(x => x.CustomerID == this.CustomerID).ToList())
+                        var VMPages = MainWindow.Instance.DataContext as ViewModels.VMPages;
+                        var VMCarSale = VMPages.VMCarSale;
+                        var VMCustomer = VMPages.VMCustomer;
+
+                        if(result == MessageBoxResult.Yes)
                         {
-                            VMCarSale.CarSale.Remove(carSale);
-                            VMCarSale.CarSaleContext.Remove(carSale);
+                            foreach (var carSale in VMCarSale.CarSale.Where(x => x.CustomerID == this.CustomerID).ToList())
+                            {
+                                VMCarSale.CarSale.Remove(carSale);
+                                VMCarSale.CarSaleContext.Remove(carSale);
+                            }
+                        } else {
+                            foreach (var carSale in VMCarSale.CarSale.Where(x => x.CustomerID == this.CustomerID).ToList())
+                            {
+                                carSale.CarID = -1;
+                                VMCarSale.CarSaleContext.CarSales.First(x => carSale.SaleID == x.SaleID).CustomerID = -1;
+                            }
                         }
+
                         VMCarSale.CarSaleContext.SaveChanges();
 
                         VMCustomer.Customer.Remove(this);
@@ -144,6 +159,5 @@ namespace MDK._01._01_CourseProject.Models
                 });
             }
         }
-
     }
 }

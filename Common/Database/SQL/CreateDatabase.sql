@@ -1,54 +1,60 @@
 ﻿CREATE SCHEMA CarDealership;
 
+USE CarDealership;
+
 CREATE TABLE CarDealership.Brands (
-    BrandID INT AUTO_INCREMENT,
-    BrandName VARCHAR(255),
-    Country VARCHAR(255),
-    Manufacturer VARCHAR(255),
-    Address VARCHAR(255),
-    PRIMARY KEY (BrandID)
-);
+  `BrandID` int(11) NOT NULL AUTO_INCREMENT,
+  `BrandName` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Manufacturer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`BrandID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE CarDealership.Cars (
-    CarID INT AUTO_INCREMENT,
-    CarName VARCHAR(255),
-    BrandID INT,
-    YearOfProduction YEAR,
-    Color VARCHAR(255),
-    Category VARCHAR(255),
-    Price DECIMAL(10, 2),
-    PRIMARY KEY (CarID),
-    FOREIGN KEY (BrandID) REFERENCES CarDealership.Brands(BrandID)
-);
+  `CarID` int(11) NOT NULL AUTO_INCREMENT,
+  `CarName` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `BrandID` int(11) DEFAULT NULL,
+  `YearOfProduction` year(4) DEFAULT NULL,
+  `Color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Price` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`CarID`),
+  KEY `BrandID` (`BrandID`),
+  CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `Brands` (`BrandID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE CarDealership.Customers (
-    CustomerID INT AUTO_INCREMENT,
-    FullName VARCHAR(255),
-    PassportData VARCHAR(255),
-    Address VARCHAR(255),
-    BirthDate DATE,
-    Gender ENUM('M', 'F'),
-    ContactDetails VARCHAR(255),
-    PRIMARY KEY (CustomerID)
-);
+  `CustomerID` int(11) NOT NULL AUTO_INCREMENT,
+  `FullName` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PassportData` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `BirthDate` date DEFAULT NULL,
+  `Gender` BOOLEAN DEFAULT NULL,
+  `ContactDetails` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`CustomerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE CarDealership.Employees (
-    EmployeeID INT AUTO_INCREMENT,
-    FullName VARCHAR(255),
-    WorkExperience INT,
-    Salary DECIMAL(10, 2),
-    ContactDetails VARCHAR(255),
-    PRIMARY KEY (EmployeeID)
-);
+  `EmployeeID` int(11) NOT NULL AUTO_INCREMENT,
+  `FullName` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `WorkExperience` int(11) DEFAULT NULL,
+  `Salary` decimal(10,2) DEFAULT NULL,
+  `ContactDetails` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`EmployeeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE CarDealership.CarSales (
-    SaleID INT AUTO_INCREMENT,
-    SaleDate DATE,
-    EmployeeID INT,
-    CarID INT,
-    CustomerID INT,
-    PRIMARY KEY (SaleID),
-    FOREIGN KEY (EmployeeID) REFERENCES CarDealership.Employees(EmployeeID),
-    FOREIGN KEY (CarID) REFERENCES CarDealership.Cars(CarID),
-    FOREIGN KEY (CustomerID) REFERENCES CarDealership.Customers(CustomerID)
-);
+  `SaleID` int(11) NOT NULL AUTO_INCREMENT,
+  `SaleDate` date DEFAULT NULL,
+  `EmployeeID` int(11) DEFAULT NULL,
+  `CarID` int(11) DEFAULT NULL,
+  `CustomerID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`SaleID`),
+  KEY `EmployeeID` (`EmployeeID`),
+  KEY `CarID` (`CarID`),
+  KEY `CustomerID` (`CustomerID`),
+  CONSTRAINT `carsales_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `Employees` (`EmployeeID`),
+  CONSTRAINT `carsales_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `Cars` (`CarID`),
+  CONSTRAINT `carsales_ibfk_3` FOREIGN KEY (`CustomerID`) REFERENCES `Customers` (`CustomerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -3,17 +3,20 @@ using Schema = System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Linq;
+using System.Collections.ObjectModel;
+using System.Net.Http.Headers;
+using MDK._01._01_CourseProject.Context;
 
 namespace MDK._01._01_CourseProject.Models
 {
     public class Car : NotMappedNotification
     {
         private string carName;
-        private int brandID;
-        private int yearOfProduction;
+        private int? brandID;
+        private int? yearOfProduction;
         private string color;
         private string category;
-        private decimal price;
+        private decimal? price;
 
         public int CarID { get; set; }
         public string CarName
@@ -21,17 +24,18 @@ namespace MDK._01._01_CourseProject.Models
             get { return carName; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     carName = value;
                     OnPropertyChanged("CarName");
                 }
+                else
+                {
+                    MessageBox.Show($"Ошибка", "Название машины должно быть больше 0 и меньше 255 символов");
+                }
             }
         }
-        public int BrandID
+        public int? BrandID
         {
             get { return brandID; }
             set
@@ -40,13 +44,16 @@ namespace MDK._01._01_CourseProject.Models
                 OnPropertyChanged("BrandID");
             }
         }
-        public int YearOfProduction
+        public int? YearOfProduction
         {
             get { return yearOfProduction; }
             set
             {
-                yearOfProduction = value;
-                OnPropertyChanged("YearOfProduction");
+                Match match = Regex.Match(value.ToString(), @"\b\d{4}\b");
+                if (match.Success) {
+                    yearOfProduction = value;
+                    OnPropertyChanged("YearOfProduction");
+                }
             }
         }
         public string Color
@@ -54,14 +61,13 @@ namespace MDK._01._01_CourseProject.Models
             get { return color; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     color = value;
                     OnPropertyChanged("Color");
                 }
+                else
+                    MessageBox.Show($"Ошибка", "Название машины должно быть больше 0 и меньше 255 символов");
             }
         }
         public string Category
@@ -69,23 +75,29 @@ namespace MDK._01._01_CourseProject.Models
             get { return category; }
             set
             {
-                Match match = Regex.Match(value, "");
-                if (!match.Success)
-                    MessageBox.Show($"");
-                else
+                if (value.Length > 0 && value.Length <= 255)
                 {
                     category = value;
                     OnPropertyChanged("Category");
                 }
+                else 
+                    MessageBox.Show($"Ошибка", "Название машины должно быть больше 0 и меньше 255 символов");
             }
         }
-        public decimal Price
+        public decimal? Price
         {
             get { return price; }
             set
             {
-                price = value;
-                OnPropertyChanged("Price");
+                Match match = Regex.Match(value.ToString(), @"^\d*[\.,]?\d*$");
+
+                if (match.Success)
+                {
+                    price = value;
+                    OnPropertyChanged("Price");
+                }
+                else
+                    MessageBox.Show($"Ошибка", "Цена должна быть положительным числом");
             }
         }
 
@@ -95,14 +107,13 @@ namespace MDK._01._01_CourseProject.Models
             get
             {
                 return new RelayCommand(obj =>
-                {
-                    IsEnable = !IsEnable;
+                    {
+                        IsEnable = !IsEnable;
 
-                    if (!IsEnable)
-                        (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCar.CarContext.SaveChanges();
-                }
+                        if (!IsEnable)
+                            (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCar.CarContext.SaveChanges();
+                    }
                 );
-
             }
         }
 
@@ -113,25 +124,45 @@ namespace MDK._01._01_CourseProject.Models
             {
                 return new RelayCommand(obj =>
                 {
-                    if (MessageBox.Show("Вы уверены что хотите удалить запись машины?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    var result = MessageBox.Show("Удалить вместе с этой записью другие?", "Предупреждение", MessageBoxButton.YesNoCancel);
+
+                    if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
                     {
-                        var VMCarSale = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCarSale;
-                        var VMCar = (MainWindow.Instance.DataContext as ViewModels.VMPages).VMCar;
+                        var VMPages = MainWindow.Instance.DataContext as ViewModels.VMPages;
+                        var VMCar = VMPages.VMCar;
+                        var VMCarSale = VMPages.VMCarSale;
 
-                        foreach (var carSale in VMCarSale.CarSale.Where(x => x.CarID == this.CarID).ToList())
+                        if (result == MessageBoxResult.Yes)
                         {
-                            VMCarSale.CarSale.Remove(carSale);
-                            VMCarSale.CarSaleContext.Remove(carSale);
-                        }
-                        VMCarSale.CarSaleContext.SaveChanges();
+                            var carSalesToRemove = VMCarSale.CarSale.Where(x => x.CarID == this.CarID).ToList();
 
-                        VMCar.Car.Remove(this);
-                        VMCar.CarContext.Remove(this);
+                            foreach (var carSale in carSalesToRemove)
+                            {
+                                VMCarSale.CarSale.Remove(carSale);
+                                VMCarSale.CarSaleContext.Remove(carSale);
+                            }
+
+                            VMCar.Car.Remove(this);
+                            VMCar.CarContext.Remove(this);
+                        }
+                        else
+                        {
+                            var carSalesToUpdate = VMCarSale.CarSale.Where(x => x.CarID == this.CarID).ToList();
+                            var carSalesContextToUpdate = VMCarSale.CarSaleContext.CarSales.Where(x => x.CarID == this.CarID).ToList();
+                            foreach (var carSale in carSalesToUpdate)
+                            {
+                                carSale.CarID = -1;
+                                carSalesContextToUpdate.First(x => x.CarID ==  carSale.CarID).CarID = -1;
+                            }
+                        }
+
                         VMCar.CarContext.SaveChanges();
                     }
                 });
             }
         }
 
+        [Schema.NotMapped]
+        public ObservableCollection<Brand> Brand { get { return new ObservableCollection<Brand>(new BrandContext().Brands); } }
     }
 }

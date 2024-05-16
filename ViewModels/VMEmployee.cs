@@ -12,7 +12,7 @@ namespace MDK._01._01_CourseProject.ViewModels
 {
     public class VMEmployee
     {
-        public EmployeeContext EmployeeContext { get; set; }
+        public EmployeeContext EmployeeContext = new EmployeeContext();
         public ObservableCollection<Employee> Employee { get; set; }
         public VMEmployee()
         {

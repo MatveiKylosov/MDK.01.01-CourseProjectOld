@@ -19,8 +19,8 @@
                     <DropShadowEffect Opacity="0.1"/>
                 </Grid.Effect>
 
-                <Label Content="Название бренда:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <DatePicker Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <Label Content="Дата продажи:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
+                <DatePicker Text="{Binding SaleDate}" IsEnabled="{Binding IsEnable}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
             <Grid Margin="10, 80, 10, 0" Height="60" VerticalAlignment="Top" Background="#F0EDCC">
@@ -29,7 +29,12 @@
                 </Grid.Effect>
 
                 <Label Content="Сотрудник:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <ComboBox Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <ComboBox IsEnabled="{Binding IsEnable}" 
+                          ItemsSource="{Binding Employee}"
+                          DisplayMemberPath="FullName"
+                          SelectedValue="{Binding EmployeeID}"
+                          SelectedValuePath="EmployeeID"                          
+                          Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
             <Grid Margin="10" Height="60" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="1">
@@ -38,7 +43,12 @@
                 </Grid.Effect>
 
                 <Label Content="Машина:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <ComboBox Text="ПивЗавод" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <ComboBox IsEnabled="{Binding IsEnable}"
+                          ItemsSource="{Binding Car}"
+                          DisplayMemberPath="CarName"
+                          SelectedValue="{Binding CarID}"
+                          SelectedValuePath="CarID"
+                          Text="ПивЗавод" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
             <Grid Margin="10, 80, 10, 0" Height="60" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="1">
@@ -47,12 +57,16 @@
                 </Grid.Effect>
 
                 <Label Content="Клиент:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <ComboBox Text="МАСКВА ТУТ СЯМ" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <ComboBox
+                          ItemsSource="{Binding Customer}"
+                          DisplayMemberPath="FullName"
+                          SelectedValue="{Binding CustomerID}"
+                          SelectedValuePath="CustomerID"    
+                          IsEnabled="{Binding IsEnable}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
-            <Button Content="Удалить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10, 145, 160, 0" Grid.Column="1"/>
-            <Button Content="Открыть" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 145, 85, 10" Grid.Column="1"/>
-            <Button Content="Изменить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 145, 10, 0" Grid.Column="1"/>
+            <Button Command="{Binding OnDelete}" IsEnabled="{Binding IsEnable}" Content="Удалить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10, 145, 85, 10" Grid.Column="1"/>
+            <Button Command="{Binding OnEdit}" Content="{Binding IsEnableText}" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 145, 10, 10" Grid.Column="1"/>
         </Grid>
     </Grid>
 </UserControl>

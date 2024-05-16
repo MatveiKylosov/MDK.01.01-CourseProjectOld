@@ -1,27 +1,39 @@
 ﻿using MDK._01._01_CourseProject.Common;
+using MDK._01._01_CourseProject.Context;
 using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using System.Windows;
 using Schema = System.ComponentModel.DataAnnotations.Schema;
 namespace MDK._01._01_CourseProject.Models
 {
     public class CarSale : NotMappedNotification
     {
-        private DateTime saleDate;
-        private int employeeID;
-        private int carID;
-        private int customerID;
-
+        [Key]
         public int SaleID { get; set; }
-        public DateTime SaleDate
+
+        private DateTime? saleDate;
+        private int? employeeID;
+        private int? carID;
+        private int? customerID;
+
+        public DateTime? SaleDate
         {
             get { return saleDate; }
             set
             {
-                saleDate = value;
-                OnPropertyChanged("SaleDate");
+                Match match = Regex.Match(value.ToString(), @"^([0-1]?[0-9]|2[0-3]):[0-5][0-9] (0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.\d{4}");
+                if (match.Success)
+                {
+                    saleDate = value;
+                    OnPropertyChanged("SaleDate");
+                }
+                else
+                    MessageBox.Show($"Ошибка", "Укажите дату продажи в формате - \"ЧЧ:ММ дд.мм.гггг\".");
             }
         }
-        public int EmployeeID
+        public int? EmployeeID
         {
             get { return employeeID; }
             set
@@ -31,7 +43,7 @@ namespace MDK._01._01_CourseProject.Models
             }
         }
 
-        public int CarID
+        public int? CarID
         {
             get { return carID; }
             set
@@ -40,7 +52,7 @@ namespace MDK._01._01_CourseProject.Models
                 OnPropertyChanged("CarID");
             }
         }
-        public int CustomerID
+        public int? CustomerID
         {
             get { return customerID; }
             set
@@ -84,5 +96,13 @@ namespace MDK._01._01_CourseProject.Models
                 );
             }
         }
+
+        [Schema.NotMapped]
+        public ObservableCollection<Car> Brand { get { return new ObservableCollection<Car>(new CarContext().Cars); } }
+        [Schema.NotMapped]
+        public ObservableCollection<Employee> Employee { get { return new ObservableCollection<Employee>(new EmployeeContext().Employees); } }
+        [Schema.NotMapped]
+        public ObservableCollection<Customer> Customer { get { return new ObservableCollection<Customer>(new CustomerContext().Customers); } }
+
     }
 }

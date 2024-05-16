@@ -21,7 +21,7 @@
                 </Grid.Effect>
 
                 <Label Content="ФИО:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <TextBox Text="Кылосов Матвей Михайлович" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <TextBox Text="{Binding FullName}" IsEnabled="{Binding IsEnable}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
 
@@ -31,7 +31,7 @@
                 </Grid.Effect>
 
                 <Label Content="Паспортные данные:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <TextBox  Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <TextBox Text="{Binding PassportData}" IsEnabled="{Binding IsEnable}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
             <Grid Margin="10" Height="60" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="1">
@@ -40,7 +40,7 @@
                 </Grid.Effect>
 
                 <Label Content="Адрес:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <TextBox Text="ПивЗавод" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <TextBox Text="{Binding Address}" IsEnabled="{Binding IsEnable}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
             <Grid Margin="10, 80, 10, 0" Height="60" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="1">
@@ -49,7 +49,7 @@
                 </Grid.Effect>
 
                 <Label Content="День рождение:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <DatePicker Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <DatePicker SelectedDate="{Binding BirthDate}" IsEnabled="{Binding IsEnable}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
             <Grid Margin="10, 150, 10, 10" Height="60" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="0">
@@ -58,7 +58,7 @@
                 </Grid.Effect>
 
                 <Label Content="Контактные данные:" VerticalAlignment="Top" Margin="10, 0, 10, 0" Foreground="#02343F"/>
-                <TextBox  Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
+                <TextBox Text="{Binding ContactDetails}" IsEnabled="{Binding IsEnable}" Background="#02343F" Foreground="#F0EDCC" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="25" Margin="10, 25, 10, 0"/>
             </Grid>
 
             <Grid Margin="10, 150, 10, 0" Height="30" VerticalAlignment="Top" Background="#F0EDCC" Grid.Column="1">
@@ -66,12 +66,11 @@
                     <DropShadowEffect Opacity="0.1"/>
                 </Grid.Effect>
 
-                <CheckBox Content="Мужской пол" VerticalAlignment="Top" Margin="10, 8, 10, 0" Foreground="#02343F"/>
+                <CheckBox IsChecked="{Binding Gender}" IsEnabled="{Binding IsEnable}" Content="Мужской пол" VerticalAlignment="Top" Margin="10, 8, 10, 0" Foreground="#02343F"/>
             </Grid>
 
-            <Button Content="Удалить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10, 185, 160, 0" Grid.Column="1"/>
-            <Button Content="Открыть" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 185, 85, 10" Grid.Column="1"/>
-            <Button Content="Изменить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 185, 10, 0" Grid.Column="1"/>
+            <Button Command="{Binding OnDelete}" IsEnabled="{Binding IsEnable}" Content="Удалить" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10, 185, 85, 0" Grid.Column="1"/>
+            <Button Command="{Binding OnEdit}" Content="{Binding IsEnableText}" Background="#F0EDCC" Foreground="#02343F" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 185, 10, 0" Grid.Column="1"/>
         </Grid>
     </Grid>
 </UserControl>
