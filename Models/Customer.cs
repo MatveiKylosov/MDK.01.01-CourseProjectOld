@@ -135,25 +135,27 @@ namespace MDK._01._01_CourseProject.Models
                         var VMCarSale = VMPages.VMCarSale;
                         var VMCustomer = VMPages.VMCustomer;
 
-                        if(result == MessageBoxResult.Yes)
+                        var CarSaleList = VMCarSale.CarSale.Where(x => x.CustomerID == this.CustomerID).ToList();
+
+                        if (result == MessageBoxResult.Yes)
                         {
-                            foreach (var carSale in VMCarSale.CarSale.Where(x => x.CustomerID == this.CustomerID).ToList())
+                            foreach (var carSale in CarSaleList)
                             {
                                 VMCarSale.CarSale.Remove(carSale);
                                 VMCarSale.CarSaleContext.Remove(carSale);
                             }
                         } else {
-                            foreach (var carSale in VMCarSale.CarSale.Where(x => x.CustomerID == this.CustomerID).ToList())
+                            foreach (var carSale in CarSaleList)
                             {
-                                carSale.CarID = -1;
-                                VMCarSale.CarSaleContext.CarSales.First(x => carSale.SaleID == x.SaleID).CustomerID = -1;
+                                carSale.CarID = null;
+                                VMCarSale.CarSaleContext.CarSales.First(x => carSale.SaleID == x.SaleID).CustomerID = null;
                             }
                         }
 
-                        VMCarSale.CarSaleContext.SaveChanges();
-
                         VMCustomer.Customer.Remove(this);
                         VMCustomer.CustomerContext.Remove(this);
+
+                        VMCarSale.CarSaleContext.SaveChanges();
                         VMCustomer.CustomerContext.SaveChanges();
                     }
                 });

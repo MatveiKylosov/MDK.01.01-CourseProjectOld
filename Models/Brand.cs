@@ -120,6 +120,8 @@ namespace MDK._01._01_CourseProject.Models
                                 VMCar.Car.Remove(car);
                                 VMCar.CarContext.Remove(car);
                             }
+
+                            VMCarSale.CarSaleContext.SaveChanges();
                         }
                         else
                         {
@@ -127,8 +129,8 @@ namespace MDK._01._01_CourseProject.Models
                             var carsToUpdateContext = VMCar.CarContext.Cars.Where(x => x.BrandID == this.BrandID).ToList();
                             foreach (var car in carsToUpdate)
                             {
-                                car.BrandID = -1;
-                                carsToUpdateContext.First(x => x.CarID == car.CarID).BrandID = -1;
+                                car.BrandID = null;
+                                carsToUpdateContext.First(x => x.CarID == car.CarID).BrandID = null;
                             }
                         }
 

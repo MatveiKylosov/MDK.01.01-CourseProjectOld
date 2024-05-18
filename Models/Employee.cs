@@ -108,9 +108,11 @@ namespace MDK._01._01_CourseProject.Models
                         var VMEmployee  = VMPages.VMEmployee;
                         var VMCarSale   = VMPages.VMCarSale;
 
-                        if(result == MessageBoxResult.Yes)
+                        var CarSaleList = VMCarSale.CarSale.Where(x => x.EmployeeID == this.EmployeeID).ToList();
+
+                        if (result == MessageBoxResult.Yes)
                         {
-                            foreach (var carSale in VMCarSale.CarSale.Where(x => x.EmployeeID == this.EmployeeID).ToList())
+                            foreach (var carSale in CarSaleList)
                             {
                                 VMCarSale.CarSale.Remove(carSale);
                                 VMCarSale.CarSaleContext.Remove(carSale);
@@ -118,16 +120,17 @@ namespace MDK._01._01_CourseProject.Models
                         }
                         else
                         {
-                            foreach (var carSale in VMCarSale.CarSale.Where(x => x.EmployeeID == this.EmployeeID).ToList())
+                            foreach (var carSale in CarSaleList)
                             {
-                                carSale.EmployeeID = -1;
-                                VMCarSale.CarSaleContext.CarSales.First(x => carSale.SaleID == x.SaleID).EmployeeID = -1;
+                                carSale.EmployeeID = null;
+                                VMCarSale.CarSaleContext.CarSales.First(x => carSale.SaleID == x.SaleID).EmployeeID = null;
                             }
                         }
-                        VMCarSale.CarSaleContext.SaveChanges();
 
                         VMEmployee.Employee.Remove(this);
                         VMEmployee.EmployeeContext.Remove(this);
+
+                        VMCarSale.CarSaleContext.SaveChanges();
                         VMEmployee.EmployeeContext.SaveChanges();
                     }
                 }

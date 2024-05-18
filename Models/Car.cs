@@ -132,30 +132,31 @@ namespace MDK._01._01_CourseProject.Models
                         var VMCar = VMPages.VMCar;
                         var VMCarSale = VMPages.VMCarSale;
 
+                        var CarSaleList = VMCarSale.CarSale.Where(x => x.CarID == this.CarID).ToList();
+
                         if (result == MessageBoxResult.Yes)
                         {
-                            var carSalesToRemove = VMCarSale.CarSale.Where(x => x.CarID == this.CarID).ToList();
-
-                            foreach (var carSale in carSalesToRemove)
+                           foreach (var carSale in CarSaleList)
                             {
                                 VMCarSale.CarSale.Remove(carSale);
                                 VMCarSale.CarSaleContext.Remove(carSale);
                             }
-
-                            VMCar.Car.Remove(this);
-                            VMCar.CarContext.Remove(this);
                         }
                         else
                         {
-                            var carSalesToUpdate = VMCarSale.CarSale.Where(x => x.CarID == this.CarID).ToList();
                             var carSalesContextToUpdate = VMCarSale.CarSaleContext.CarSales.Where(x => x.CarID == this.CarID).ToList();
-                            foreach (var carSale in carSalesToUpdate)
+
+                            foreach (var carSale in CarSaleList)
                             {
-                                carSale.CarID = -1;
-                                carSalesContextToUpdate.First(x => x.CarID ==  carSale.CarID).CarID = -1;
+                                carSale.CarID = null;
+                                carSalesContextToUpdate.First(x => x.CarID ==  carSale.CarID).CarID = null;
                             }
                         }
 
+                        VMCar.Car.Remove(this);
+                        VMCar.CarContext.Remove(this);
+
+                        VMCarSale.CarSaleContext.SaveChanges();
                         VMCar.CarContext.SaveChanges();
                     }
                 });

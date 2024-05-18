@@ -98,7 +98,7 @@ namespace MDK._01._01_CourseProject.Models
         }
 
         [Schema.NotMapped]
-        public ObservableCollection<Car> Brand { get { return new ObservableCollection<Car>(new CarContext().Cars); } }
+        public ObservableCollection<Car> Car { get { return new ObservableCollection<Car>(new CarContext().Cars); } }
         [Schema.NotMapped]
         public ObservableCollection<Employee> Employee { get { return new ObservableCollection<Employee>(new EmployeeContext().Employees); } }
         [Schema.NotMapped]
