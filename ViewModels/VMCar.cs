@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Win32;
 using System.Linq;
+using MDK._01._01_CourseProject.View.Cars;
 
 namespace MDK._01._01_CourseProject.ViewModels
 {
     public class VMCar
     {
+        public Filter filter = new Filter();
         public CarContext CarContext = new CarContext();
         public ObservableCollection<Car> Car { get; set; }
         public VMCar()
@@ -51,6 +53,23 @@ namespace MDK._01._01_CourseProject.ViewModels
                     if (saveFileDialog.ShowDialog().Value)
                         ExportCarData(Car.ToList(), saveFileDialog.FileName);
 
+                }
+                );
+            }
+        }
+
+        public RelayCommand Filter
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    filter.SetupData();
+                    if (filter.ShowDialog().Value)
+                    {
+                        return;
+                    }
+                    else return;
                 }
                 );
             }

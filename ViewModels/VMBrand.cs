@@ -1,6 +1,7 @@
 ﻿using MDK._01._01_CourseProject.Common;
 using MDK._01._01_CourseProject.Context;
 using MDK._01._01_CourseProject.Models;
+using MDK._01._01_CourseProject.View.Brands;
 using Microsoft.Win32;
 using OfficeOpenXml;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace MDK._01._01_CourseProject.ViewModels
 {
     public class VMBrand
     {
+        public Filter filter = new Filter();
         public BrandContext BrandContext = new BrandContext();
         public ObservableCollection<Brand> Brand {  get; set; }
         public VMBrand()
@@ -49,6 +51,35 @@ namespace MDK._01._01_CourseProject.ViewModels
                         ExportBrandData(Brand.ToList(), saveFileDialog.FileName);
                     
                 }
+                );
+            }
+        }
+
+        public RelayCommand Filter
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                    {
+                        filter.SetupData(BrandContext.GetAllCountries(), BrandContext.GetAllManufacturers(), BrandContext.GetAllAddresses());
+                        if (filter.ShowDialog().Value)
+                        {
+                            var itemsToRemove = new List<Brand>();
+
+                            if (filter.country != "Не выбран.")
+                                itemsToRemove.AddRange(Brand.Where(x => x.Country != filter.country));
+
+                            if (filter.manufacture != "Не выбран.")
+                                itemsToRemove.AddRange(Brand.Where(x => x.BrandName != filter.manufacture));
+
+                            if (filter.address != "Не выбран.")
+                                itemsToRemove.AddRange(Brand.Where(x => x.Address != filter.address));
+
+                            foreach (var item in itemsToRemove)
+                                Brand.Remove(item);
+                        }
+                        else Brand = new ObservableCollection<Brand>(BrandContext.Brands);
+                    }
                 );
             }
         }
