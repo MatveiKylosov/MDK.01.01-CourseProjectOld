@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace MDK._01._01_CourseProject
         public static MainWindow Instance { get; private set; }
         public MainWindow()
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             InitializeComponent();
             Instance = this;
             DataContext = new ViewModels.VMPages();
