@@ -18,12 +18,9 @@ namespace MDK._01._01_CourseProject.View.Cars
     /// </summary>
     public partial class Filter : Window
     {
-        public Filter()
-        {
-            InitializeComponent();
-        }
+        public Filter() => InitializeComponent();
 
-        public void SetupData(List<Brand> brands, List<>)
+        public void SetupData(List<Brand> brands)
         {
 
         }

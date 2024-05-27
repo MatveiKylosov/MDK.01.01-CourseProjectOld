@@ -64,12 +64,12 @@ namespace MDK._01._01_CourseProject.ViewModels
             {
                 return new RelayCommand(obj =>
                 {
-                    filter.SetupData();
+ /*                   filter.SetupData();
                     if (filter.ShowDialog().Value)
                     {
                         return;
                     }
-                    else return;
+                    else return;*/
                 }
                 );
             }
