@@ -1,11 +1,10 @@
 ﻿using MDK._01._01_CourseProject.Common;
-using Schema = System.ComponentModel.DataAnnotations.Schema;
+using MDK._01._01_CourseProject.Context;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Linq;
-using System.Collections.ObjectModel;
-using System.Net.Http.Headers;
-using MDK._01._01_CourseProject.Context;
+using Schema = System.ComponentModel.DataAnnotations.Schema;
 
 namespace MDK._01._01_CourseProject.Models
 {
@@ -50,7 +49,8 @@ namespace MDK._01._01_CourseProject.Models
             set
             {
                 Match match = Regex.Match(value.ToString(), @"\b\d{4}\b");
-                if (match.Success) {
+                if (match.Success)
+                {
                     yearOfProduction = value;
                     OnPropertyChanged("YearOfProduction");
                 }
@@ -80,7 +80,7 @@ namespace MDK._01._01_CourseProject.Models
                     category = value;
                     OnPropertyChanged("Category");
                 }
-                else 
+                else
                     MessageBox.Show($"Ошибка", "Название машины должно быть больше 0 и меньше 255 символов");
             }
         }
@@ -136,7 +136,7 @@ namespace MDK._01._01_CourseProject.Models
 
                         if (result == MessageBoxResult.Yes)
                         {
-                           foreach (var carSale in CarSaleList)
+                            foreach (var carSale in CarSaleList)
                             {
                                 VMCarSale.CarSale.Remove(carSale);
                                 VMCarSale.CarSaleContext.Remove(carSale);
@@ -149,7 +149,7 @@ namespace MDK._01._01_CourseProject.Models
                             foreach (var carSale in CarSaleList)
                             {
                                 carSale.CarID = null;
-                                carSalesContextToUpdate.First(x => x.CarID ==  carSale.CarID).CarID = null;
+                                carSalesContextToUpdate.First(x => x.CarID == carSale.CarID).CarID = null;
                             }
                         }
 

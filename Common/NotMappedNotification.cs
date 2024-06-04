@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using Schema = System.ComponentModel.DataAnnotations.Schema;
+﻿using Schema = System.ComponentModel.DataAnnotations.Schema;
 
 namespace MDK._01._01_CourseProject.Common
 {

@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows;
 
 namespace MDK._01._01_CourseProject.ViewModels
 {
@@ -16,15 +15,17 @@ namespace MDK._01._01_CourseProject.ViewModels
     {
         public Filter filter = new Filter();
         public BrandContext BrandContext = new BrandContext();
-        public ObservableCollection<Brand> Brand {  get; set; }
+        public ObservableCollection<Brand> Brand { get; set; }
         public VMBrand()
         {
             Brand = new ObservableCollection<Brand>(BrandContext.Brands);
         }
-        public RelayCommand AddBrand { get
+        public RelayCommand AddBrand
+        {
+            get
             {
                 return new RelayCommand(obj =>
-                    { 
+                    {
                         Brand brand = new Brand();
 
                         this.Brand.Add(brand);
@@ -49,7 +50,7 @@ namespace MDK._01._01_CourseProject.ViewModels
 
                     if (saveFileDialog.ShowDialog().Value)
                         ExportBrandData(Brand.ToList(), saveFileDialog.FileName);
-                    
+
                 }
                 );
             }
@@ -78,7 +79,8 @@ namespace MDK._01._01_CourseProject.ViewModels
                             foreach (var item in itemsToRemove)
                                 Brand.Remove(item);
                         }
-                        else Brand = new ObservableCollection<Brand>(BrandContext.Brands);
+                        else
+                            Brand = new ObservableCollection<Brand>(BrandContext.Brands);
                     }
                 );
             }

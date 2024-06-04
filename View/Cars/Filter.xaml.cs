@@ -1,15 +1,7 @@
 ﻿using MDK._01._01_CourseProject.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MDK._01._01_CourseProject.View.Cars
 {
@@ -18,10 +10,23 @@ namespace MDK._01._01_CourseProject.View.Cars
     /// </summary>
     public partial class Filter : Window
     {
-        public Filter() => InitializeComponent();
-
-        public void SetupData(List<Brand> brands)
+        public Filter()
         {
+            InitializeComponent();
+        }
+
+        public void SetupData(List<Brand> brands, List<Car> cars)
+        {
+            this.Brand.Items.Add("Не выбран.");
+            this.Color.Items.Add("Не выбран.");
+            this.Category.Items.Add("Не выбран.");
+
+            foreach (var brand in brands)
+                this.Brand.Items.Add(brand.BrandName);
+
+            var uniqueColors = cars.Select(car => car.Color).Distinct().ToList();
+
+            this.Color.ItemsSource = uniqueColors;
 
         }
 

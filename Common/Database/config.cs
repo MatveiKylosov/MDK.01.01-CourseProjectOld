@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Security.Cryptography;
 
 namespace MDK._01._01_CourseProject.Common.Database
 {

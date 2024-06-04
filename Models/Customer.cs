@@ -1,9 +1,9 @@
 ﻿using MDK._01._01_CourseProject.Common;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Schema = System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace MDK._01._01_CourseProject.Models
 {
@@ -66,7 +66,7 @@ namespace MDK._01._01_CourseProject.Models
             get { return birthDate; }
             set
             {
-                if(!value.HasValue)
+                if (!value.HasValue)
                     return;
 
                 Match match = Regex.Match(value.Value.ToString("dd.MM.yyyy"), @"(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.\d{4}");
@@ -75,14 +75,15 @@ namespace MDK._01._01_CourseProject.Models
                     birthDate = value;
                     OnPropertyChanged("BirthDate");
                 }
-                else 
+                else
                     MessageBox.Show($"Ошибка", "Укажите дату в формате - \"дд.мм.гггг\".");
             }
         }
         public bool? Gender
         {
-            get { 
-                return gender;  
+            get
+            {
+                return gender;
             }
             set
             {
@@ -144,7 +145,9 @@ namespace MDK._01._01_CourseProject.Models
                                 VMCarSale.CarSale.Remove(carSale);
                                 VMCarSale.CarSaleContext.Remove(carSale);
                             }
-                        } else {
+                        }
+                        else
+                        {
                             foreach (var carSale in CarSaleList)
                             {
                                 carSale.CarID = null;

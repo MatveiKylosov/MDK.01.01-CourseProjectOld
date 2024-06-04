@@ -1,19 +1,14 @@
 ﻿using MDK._01._01_CourseProject.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MDK._01._01_CourseProject.ViewModels
 {
     public class VMPages
     {
-        public VMBrand      VMBrand     = new VMBrand();
-        public VMCar        VMCar = new VMCar();
-        public VMCarSale    VMCarSale = new VMCarSale();
-        public VMCustomer   VMCustomer = new VMCustomer();
-        public VMEmployee   VMEmployee = new VMEmployee();
+        public VMBrand VMBrand = new VMBrand();
+        public VMCar VMCar = new VMCar();
+        public VMCarSale VMCarSale = new VMCarSale();
+        public VMCustomer VMCustomer = new VMCustomer();
+        public VMEmployee VMEmployee = new VMEmployee();
 
         public VMPages()
         {
@@ -25,7 +20,7 @@ namespace MDK._01._01_CourseProject.ViewModels
         {
             get
             {
-                return new RelayCommand(obj => {  MainWindow.Instance.Frame.Navigate(new View.Brands.Main(VMBrand)); });
+                return new RelayCommand(obj => { MainWindow.Instance.Frame.Navigate(new View.Brands.Main(VMBrand)); });
             }
         }
 
@@ -33,7 +28,7 @@ namespace MDK._01._01_CourseProject.ViewModels
         {
             get
             {
-                return new RelayCommand(obj => {  MainWindow.Instance.Frame.Navigate(new View.Cars.Main(VMCar)); });
+                return new RelayCommand(obj => { MainWindow.Instance.Frame.Navigate(new View.Cars.Main(VMCar)); });
             }
         }
 
@@ -41,7 +36,7 @@ namespace MDK._01._01_CourseProject.ViewModels
         {
             get
             {
-                return new RelayCommand(obj => {  MainWindow.Instance.Frame.Navigate(new View.CarSales.Main(VMCarSale)); });
+                return new RelayCommand(obj => { MainWindow.Instance.Frame.Navigate(new View.CarSales.Main(VMCarSale)); });
             }
         }
 
@@ -49,7 +44,7 @@ namespace MDK._01._01_CourseProject.ViewModels
         {
             get
             {
-                return new RelayCommand(obj => {  MainWindow.Instance.Frame.Navigate(new View.Customers.Main(VMCustomer)); });
+                return new RelayCommand(obj => { MainWindow.Instance.Frame.Navigate(new View.Customers.Main(VMCustomer)); });
             }
         }
 
@@ -57,7 +52,7 @@ namespace MDK._01._01_CourseProject.ViewModels
         {
             get
             {
-                return new RelayCommand(obj => {  MainWindow.Instance.Frame.Navigate(new View.Employees.Main(VMEmployee)); });
+                return new RelayCommand(obj => { MainWindow.Instance.Frame.Navigate(new View.Employees.Main(VMEmployee)); });
             }
         }
     }

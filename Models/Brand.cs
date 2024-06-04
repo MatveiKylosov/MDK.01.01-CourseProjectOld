@@ -1,12 +1,7 @@
 ﻿using MDK._01._01_CourseProject.Common;
 using MDK._01._01_CourseProject.ViewModels;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media.Animation;
 using Schema = System.ComponentModel.DataAnnotations.Schema;
 
 namespace MDK._01._01_CourseProject.Models
@@ -19,9 +14,9 @@ namespace MDK._01._01_CourseProject.Models
         private string address;
 
         public int BrandID { get; set; }
-        public string BrandName 
-        { 
-            get{ return brandName; } 
+        public string BrandName
+        {
+            get { return brandName; }
             set
             {
                 if (value.Length > 0 && value.Length <= 255)
@@ -34,17 +29,17 @@ namespace MDK._01._01_CourseProject.Models
             }
         }
         public string Country
-        { 
-            get{ return country; } 
+        {
+            get { return country; }
             set
             {
                 country = value;
                 OnPropertyChanged("Country");
             }
         }
-        public string Manufacturer 
-        { 
-            get{ return manufacturer; } 
+        public string Manufacturer
+        {
+            get { return manufacturer; }
             set
             {
                 if (value.Length > 0 && value.Length <= 255)
@@ -56,9 +51,9 @@ namespace MDK._01._01_CourseProject.Models
                     MessageBox.Show($"Ошибка", "Название завода должно быть больше 0 и меньше 255 символов");
             }
         }
-        public string Address 
-        { 
-            get{ return address; } 
+        public string Address
+        {
+            get { return address; }
             set
             {
                 if (value.Length > 0 && value.Length <= 255)

@@ -3,13 +3,10 @@ using MDK._01._01_CourseProject.Context;
 using MDK._01._01_CourseProject.Models;
 using Microsoft.Win32;
 using OfficeOpenXml;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MDK._01._01_CourseProject.ViewModels
 {

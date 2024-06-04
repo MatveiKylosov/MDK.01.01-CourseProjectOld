@@ -1,9 +1,9 @@
 ﻿using MDK._01._01_CourseProject.Common;
 using MDK._01._01_CourseProject.ViewModels;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Schema = System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace MDK._01._01_CourseProject.Models
 {
@@ -105,8 +105,8 @@ namespace MDK._01._01_CourseProject.Models
                     if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
                     {
                         var VMPages = MainWindow.Instance.DataContext as ViewModels.VMPages;
-                        var VMEmployee  = VMPages.VMEmployee;
-                        var VMCarSale   = VMPages.VMCarSale;
+                        var VMEmployee = VMPages.VMEmployee;
+                        var VMCarSale = VMPages.VMCarSale;
 
                         var CarSaleList = VMCarSale.CarSale.Where(x => x.EmployeeID == this.EmployeeID).ToList();
 

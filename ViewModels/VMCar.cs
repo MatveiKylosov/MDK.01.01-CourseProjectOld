@@ -1,13 +1,13 @@
 ﻿using MDK._01._01_CourseProject.Common;
 using MDK._01._01_CourseProject.Context;
 using MDK._01._01_CourseProject.Models;
-using System.Collections.ObjectModel;
+using MDK._01._01_CourseProject.View.Cars;
+using Microsoft.Win32;
 using OfficeOpenXml;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using Microsoft.Win32;
 using System.Linq;
-using MDK._01._01_CourseProject.View.Cars;
 
 namespace MDK._01._01_CourseProject.ViewModels
 {
@@ -31,7 +31,7 @@ namespace MDK._01._01_CourseProject.ViewModels
 
                     this.Car.Add(car);
                     CarContext.Cars.Add(car);
-/*                    CarContext.SaveChanges();*/
+                    /*                    CarContext.SaveChanges();*/
                 }
                 );
             }
@@ -64,12 +64,12 @@ namespace MDK._01._01_CourseProject.ViewModels
             {
                 return new RelayCommand(obj =>
                 {
- /*                   filter.SetupData();
-                    if (filter.ShowDialog().Value)
-                    {
-                        return;
-                    }
-                    else return;*/
+                    /*                   filter.SetupData();
+                                       if (filter.ShowDialog().Value)
+                                       {
+                                           return;
+                                       }
+                                       else return;*/
                 }
                 );
             }
